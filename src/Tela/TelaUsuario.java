@@ -50,7 +50,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 txtUsuNome.setText(null);
                 txtUsuLogin.setText(null);
                 txtUsuSenha.setText(null);
-                cboUsuPerfil.setSelectedItem(null);
+               
             }
            
         } catch (Exception e) {
@@ -69,7 +69,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             pst.setString(4,txtUsuSenha.getText());
             pst.setString(5,cboUsuPerfil.getSelectedItem().toString());
             //validação dos campos obrigatorios
-            if (txtUsuId.getText().isEmpty() || txtUsuNome.getText().isEmpty() || txtUsuLogin.getText().isEmpty() || txtUsuSenha.getText().isEmpty()) {
+            if ((txtUsuId.getText().isEmpty()) || (txtUsuNome.getText().isEmpty()) || (txtUsuLogin.getText().isEmpty()) || (txtUsuSenha.getText().isEmpty())) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
             } else {
 
@@ -83,7 +83,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                     txtUsuNome.setText(null);
                     txtUsuLogin.setText(null);
                     txtUsuSenha.setText(null);
-                    cboUsuPerfil.setSelectedItem(null);
+                    
                 }
             }    
             
@@ -133,7 +133,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
 
         jLabel5.setText("* Perfil");
 
-        cboUsuPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "      ", "admin", "user" }));
+        cboUsuPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "admin", "user" }));
 
         btnUsuCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/create.png"))); // NOI18N
         btnUsuCreate.setToolTipText("Adicionar");
