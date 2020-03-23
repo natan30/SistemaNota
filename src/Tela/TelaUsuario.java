@@ -91,6 +91,40 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null,e);
         }
     }
+    //criando o metodo para alterar os dados do usuario
+    private void alterar(){
+        String sql = "update tbusuario set usuario=?,login=?,senha=?,perfil=? where iduser=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtUsuNome.getText());
+            pst.setString(2, txtUsuLogin.getText());
+            pst.setString(3, txtUsuSenha.getText());
+            pst.setString(4, cboUsuPerfil.getSelectedItem().toString());
+            pst.setString(5, txtUsuId.getText());
+            
+            if ((txtUsuId.getText().isEmpty()) || (txtUsuNome.getText().isEmpty()) || (txtUsuLogin.getText().isEmpty()) || (txtUsuSenha.getText().isEmpty())) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+            } else {
+
+                //a linha abaixo atualiza a tabela usuario com os dados do formulario
+                int adicionado = pst.executeUpdate();
+
+                if (adicionado > 0) {
+
+                    JOptionPane.showMessageDialog(null, "Dados dos Usuarios alterados com sucesso");
+                    txtUsuId.setText(null);
+                    txtUsuNome.setText(null);
+                    txtUsuLogin.setText(null);
+                    txtUsuSenha.setText(null);
+                    
+                }
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e);
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -151,6 +185,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         btnUsuUpdate.setContentAreaFilled(false);
         btnUsuUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuUpdate.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnUsuUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuUpdateActionPerformed(evt);
+            }
+        });
 
         btnUsuRead.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/read.png"))); // NOI18N
         btnUsuRead.setToolTipText("Consultar");
@@ -266,6 +305,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         // chamando o metodo adcionar
         adicionar();
     }//GEN-LAST:event_btnUsuCreateActionPerformed
+
+    private void btnUsuUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuUpdateActionPerformed
+        // chamando o metodo alterar
+        alterar();
+    }//GEN-LAST:event_btnUsuUpdateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
