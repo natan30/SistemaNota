@@ -124,6 +124,34 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null,e);
         }
     }
+    //metodo responsavel pela remoção de usuarios
+    private void remover(){
+        //a estrutura abaixo comfirma a remoção do usuario
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o usuario?","Atenção",JOptionPane.YES_NO_OPTION);
+        if (confirma==JOptionPane.YES_OPTION) {
+           String sql = "delete from tbusuario where iduser=?";
+            try {
+              pst = conexao.prepareStatement(sql);
+              pst.setString(1, txtUsuId.getText());
+          
+              int removido = pst.executeUpdate();
+              if (removido >0){
+                  JOptionPane.showMessageDialog(null,"usuario removido");
+                  txtUsuId.setText(null);
+                  txtUsuNome.setText(null);
+                  txtUsuLogin.setText(null);
+                  txtUsuSenha.setText(null);
+                  cboUsuPerfil.setSelectedItem(null);
+             }else{
+                  JOptionPane.showMessageDialog(null, "Usuario não removido");
+              }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,e);
+            }
+            
+        } else {
+        }
+    }
     
 
     /**
@@ -207,6 +235,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         btnUsuDelete.setContentAreaFilled(false);
         btnUsuDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuDelete.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnUsuDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuDeleteActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("* Campos Obrigatórios");
 
@@ -310,6 +343,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         // chamando o metodo alterar
         alterar();
     }//GEN-LAST:event_btnUsuUpdateActionPerformed
+
+    private void btnUsuDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuDeleteActionPerformed
+        // chamando o metodo remover
+        remover();
+    }//GEN-LAST:event_btnUsuDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
